@@ -26,20 +26,21 @@ temperaturas = [
     ]
 ]
 
-# Inicializamos una lista para almacenar los promedios
-promedios = []
+def calcular_promedios(temperaturas):
+    """Calcula el promedio de temperaturas para cada ciudad."""
+    promedios = []
+    for ciudad in temperaturas:
+        promedios_ciudad = [sum(semana) / len(semana) for semana in ciudad]
+        promedios.append(promedios_ciudad)
+    return promedios
 
-# Calculamos el promedio de temperaturas para cada ciudad por cada semana
-for ciudad_idx, ciudad in enumerate(temperaturas):
-    promedios_ciudad = []
-    for semana_idx, semana in enumerate(ciudad):
-        suma_temperaturas = sum(semana)
-        promedio = suma_temperaturas / len(semana)
-        promedios_ciudad.append(promedio)
-    promedios.append(promedios_ciudad)
+def imprimir_promedios(ciudades, promedios):
+    """Imprime los promedios de temperaturas para cada ciudad."""
+    for ciudad_idx, ciudad in enumerate(ciudades):
+        print(f"Promedios de temperaturas para {ciudad}:")
+        for semana_idx, promedio in enumerate(promedios[ciudad_idx]):
+            print(f"  Semana {semana_idx + 1}: {promedio:.2f} °C")
 
-# Mostramos el promedio de temperaturas para cada ciudad y semana
-for ciudad_idx, ciudad in enumerate(ciudades):
-    print(f"Promedios de temperaturas para {ciudad}:")
-    for semana_idx in range(semanas):
-        print(f"  Semana {semana_idx + 1}: {promedios[ciudad_idx][semana_idx]:.2f} °C")
+# Calcular y mostrar los promedios
+promedios = calcular_promedios(temperaturas)
+imprimir_promedios(ciudades, promedios)
